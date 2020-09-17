@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="uTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.zys.redisdemo.dao.UserDao">
+
+    <!--使用mybatis开启redis缓存-->
+    <cache type="com.zys.redisdemo.cache.RedisCache"/>
+
+
+    <select id="getAll" resultType="com.zys.redisdemo.entity.User">
+        select * from user
+    </select>
+
+    <select id="getByUsername" resultType="com.zys.redisdemo.entity.User">
+        select * from user where username = #{username}
+    </select>
+
+    <delete id="deleteByUsername">
+        delete from user  where username = #{username}
+    </delete>
+</mapper>

@@ -1,0 +1,40 @@
+#配置redis服务
+spring:
+  redis:
+    #配置redis的编号，redis有16个database,0~15
+    database: 0
+    #配置主机地址
+    host: 127.0.0.1
+    #配置redis端口号，默认是6379
+    port: 6379
+    #配置redis登录密码
+    password: 123456
+    #配置连接池信息
+    jedis:
+      pool:
+        #配置最大连接数
+        max-active: 8
+        #配置最大空闲连接数
+        max-idle: 8
+        #配置最大阻塞等待时间
+        max-wait: -1ms
+        #配置最小空闲连接数
+        min-idle: 0
+
+  datasource:
+    #使用阿里巴巴的druid
+    type: com.alibaba.druid.pool.DruidDataSource
+    #配置数据库的路径和用户名密码
+    url: jdbc:mysql://localhost:3306/db2020?useUnicode=true&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=UTC
+    username: root
+    password: zys123456
+
+#配置xml的位置
+mybatis:
+  mapperLocations: classpath*:mapper/*Mapper.xml
+
+#开启日志打印
+logging:
+  level:
+    com.zys.redisdemo: debug
+
