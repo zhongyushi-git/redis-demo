@@ -1,2 +1,2 @@
-## redis的基本使用，主要是结合springboot进行介绍
+## redis和spring data redis的基本使用，主要是结合springboot进行介绍
 

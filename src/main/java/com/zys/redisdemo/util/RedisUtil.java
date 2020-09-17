@@ -42,12 +42,12 @@ public class RedisUtil {
 
     //设置值
     public void setValue(String key, String val) {
-        stringRedisTemplate.opsForValue().set(key, val);
+        stringRedisTemplate.boundValueOps(key).set(val);
     }
 
     //获取值
     public String getValue(String key) {
-        return stringRedisTemplate.opsForValue().get(key);
+        return stringRedisTemplate.boundValueOps(key).get();
     }
 
 
@@ -57,12 +57,12 @@ public class RedisUtil {
      */
     //存入对象
     public void setObject(String key,Object obj){
-          redisTemplate.opsForValue().set(key,obj);
+          redisTemplate.boundValueOps(key).set(obj);
     }
 
     //获取对象
-    public Object getObject(String key,Object obj){
-        return redisTemplate.opsForValue().get(key);
+    public Object getObject(String key){
+        return redisTemplate.boundValueOps(key).get();
     }
 
     //删除对象
