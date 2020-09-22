@@ -3,6 +3,7 @@ package com.zys.redisdemo.util;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.data.redis.core.StringRedisTemplate;
+import org.springframework.data.redis.serializer.StringRedisSerializer;
 import org.springframework.stereotype.Component;
 
 import java.util.concurrent.TimeUnit;
@@ -57,28 +58,36 @@ public class RedisUtil {
      */
     //存入对象
     public void setObject(String key,Object obj){
-          redisTemplate.boundValueOps(key).set(obj);
+        getRedisTemplate().boundValueOps(key).set(obj);
     }
 
     //获取对象
     public Object getObject(String key){
-        return redisTemplate.boundValueOps(key).get();
+        return getRedisTemplate().boundValueOps(key).get();
     }
 
     //删除对象
     public void delObject(String key){
-        redisTemplate.delete(key);
+        getRedisTemplate().delete(key);
     }
 
     //设置对象过期时间
     public void setObjectTimeOut(String key,long second){
-        redisTemplate.expire(key,second,TimeUnit.SECONDS);
+        getRedisTemplate().expire(key,second,TimeUnit.SECONDS);
     }
 
     //判断对象是否存在
     public boolean objectIsExists(String key) {
-        return redisTemplate.hasKey(key);
+        return getRedisTemplate().hasKey(key);
     }
 
 
+    //获取RedisTemplate,把key进行string序列化,那么在库中就显示的原始的key值，否则就是16进制的值不方便。
+    private RedisTemplate getRedisTemplate(){
+        //设置key是string类型的序列
+        redisTemplate.setKeySerializer(new StringRedisSerializer());
+        //设置hashKey是string类型的序列
+        redisTemplate.setHashKeySerializer(new StringRedisSerializer());
+        return redisTemplate;
+    }
 }
